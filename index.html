@@ -29,10 +29,7 @@
             position: absolute;
             background-size: cover;
         }
-        .bazuca-usa {
-            background-image: url('bazuca.png'); /* Imagen de bazuca cerca del index.html */
-        }
-        .bazuca-canada {
+        .bazuca {
             background-image: url('bazuca.png'); /* Imagen de bazuca cerca del index.html */
         }
         #marcador {
@@ -77,14 +74,14 @@
         // Añadir bazucas a las bolas
         var bazucaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
-                className: 'arma bazuca-usa',
+                className: 'arma bazuca',
                 iconSize: [20, 20]
             })
         }).addTo(map);
 
         var bazucaCanada = L.marker([56.1304, -106.3468], {
             icon: L.divIcon({
-                className: 'arma bazuca-canada',
+                className: 'arma bazuca',
                 iconSize: [20, 20]
             })
         }).addTo(map);
