@@ -133,10 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
             ], { color: bola.options.icon.options.className.includes('usa') ? 'blue' : 'red' }).addTo(map);
             if (bola.options.icon.options.className.includes('usa')) {
                 puntajeUSA++;
-                bombedByUSA.push(bombLatLng);
+                bombedByUSA.push(target.getPopup().getContent());
             } else {
                 puntajeCanada++;
-                bombedByCanada.push(bombLatLng);
+                bombedByCanada.push(target.getPopup().getContent());
                 if (target === bolaUSA) {
                     alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
@@ -148,16 +148,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function mostrarEstadisticas() {
-        var estadisticas = `
-            <h2>Estadísticas de la partida</h2>
-            <p>Países bombardeados por USA:</p>
-            <ul>${bombedByUSA.map(coord => `<li>${coord}</li>`).join('')}</ul>
-            <p>Países bombardeados por Canadá:</p>
-            <ul>${bombedByCanada.map(coord => `<li>${coord}</li>`).join('')}</ul>
-        `;
-        var div = document.createElement('div');
-        div.innerHTML = estadisticas;
-        document.body.appendChild(div);
+        var estadisticasDiv = document.getElementById('estadisticas');
+        var bombedByUSAList = document.getElementById('bombedByUSA');
+        var bombedByCanadaList = document.getElementById('bombedByCanada');
+
+        bombedByUSAList.innerHTML = bombedByUSA.map(pais => `<li>${pais}</li>`).join('');
+        bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
+        
+        estadisticasDiv.classList.remove('hidden');
     }
 
     function checarGanador() {
@@ -169,6 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("¡Canadá ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
         }
+    }
+
+    function reiniciarJuego() {
+        location.reload();
     }
 
     document.addEventListener('keydown', function(e) {
