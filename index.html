@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalla de Bolas del Mundo</title>
-     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
         #map {
             height: 600px;
@@ -30,7 +30,7 @@
             background-size: cover;
         }
         .bazuca {
-            background-image: url('bazuca.png'); /* Imagen de bazuca cerca del index.html */
+            background-image: url('bazuca.png');
         }
         #marcador {
             font-size: 24px;
@@ -44,19 +44,17 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Crear el mapa
         var map = L.map('map', {
-            zoomControl: false, // Desactivar control de zoom
-            scrollWheelZoom: false, // Desactivar zoom con la rueda del ratón
-            doubleClickZoom: false, // Desactivar zoom con doble clic
-            boxZoom: false // Desactivar zoom con el cuadro
-        }).setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
+            zoomControl: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            boxZoom: false
+        }).setView([20, 0], 2);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Crear una bola de país
         var bolaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
                 className: 'bola-pais bola-usa',
@@ -71,7 +69,6 @@
             })
         }).addTo(map).bindPopup('Canadá');
 
-        // Añadir bazucas a las bolas
         var bazucaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
                 className: 'arma bazuca',
@@ -107,7 +104,7 @@
             if (keys['a']) newLng -= velocidad;
             if (keys['s']) newLat -= velocidad;
             if (keys['d']) newLng += velocidad;
-            // Evitar que la bola se salga del mapa
+
             var bounds = map.getBounds();
             if (!bounds.contains([newLat, newLng])) {
                 return;
@@ -123,7 +120,7 @@
             var distance = velocidad;
             lat += distance * Math.cos(direction);
             lng += distance * Math.sin(direction);
-            // Evitar que la bola se salga del mapa
+
             var bounds = map.getBounds();
             if (!bounds.contains([lat, lng])) {
                 return;
@@ -144,7 +141,6 @@
 
         gameLoop();
 
-        // Lógica de lanzamientos de bombas
         function lanzarBomba(bola, target) {
             var bomba = L.circleMarker(target.getLatLng(), {
                 color: 'black',
@@ -154,7 +150,6 @@
             }).addTo(map).bindPopup('¡Bomba!');
             setTimeout(() => {
                 map.removeLayer(bomba);
-                // Cambiar color del país bombardeado al del país atacante
                 target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });
                 if (bola === bolaUSA) {
                     puntajeUSA++;
@@ -175,7 +170,7 @@
             lanzarBomba(bolaCanada, bolaUSA);
         }
 
-        setInterval(bolaCanadaAtaca, 5000); // La bola de Canadá ataca automáticamente cada 5 segundos
+        setInterval(bolaCanadaAtaca, 5000);
     </script>
 </body>
 </html>
