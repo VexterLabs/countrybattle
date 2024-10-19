@@ -138,8 +138,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 puntajeCanada++;
                 bombedByCanada.push(target.getPopup().getContent());
                 if (target === bolaUSA) {
-                      //alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
-                    //mostrarEstadisticas();
+                      alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
+                    mostrarEstadisticas();
                 }
             }
             actualizarMarcador();
