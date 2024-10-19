@@ -66,5 +66,5 @@ button {
     display: none;
 }
 .fixed {
-    display: flex;
+    display: block;
 }
