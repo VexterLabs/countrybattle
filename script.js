@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }).setView([20, 0], 2);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     // Crear bolas y armas
@@ -49,19 +49,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }).addTo(map);
     }
 
-    function moverBola(bola, bazuca, lat, lng) {
-        var newLat = lat;
-        var newLng = lng;
-        if (keys['w']) newLat += velocidad;
-        if (keys['a']) newLng -= velocidad;
-        if (keys['s']) newLat -= velocidad;
-        if (keys['d']) newLng += velocidad;
+    function moverBola(direction) {
+        var lat = bolaUSA.getLatLng().lat;
+        var lng = bolaUSA.getLatLng().lng;
+        switch(direction) {
+            case 'up': lat += velocidad; break;
+            case 'left': lng -= velocidad; break;
+            case 'down': lat -= velocidad; break;
+            case 'right': lng += velocidad; break;
+        }
         var bounds = map.getBounds();
-        if (!bounds.contains([newLat, newLng])) {
+        if (!bounds.contains([lat, lng])) {
             return;
         }
-        bola.setLatLng([newLat, newLng]);
-        bazuca.setLatLng([newLat, newLng]);
+        bolaUSA.setLatLng([lat, lng]);
+        bazucaUSA.setLatLng([lat, lng]);
     }
 
     function moverBolaContraria(bola, bazuca) {
@@ -84,14 +86,18 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function gameLoop() {
-        moverBola(bolaUSA, bazucaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
         moverBolaContraria(bolaCanada, bazucaCanada);
         requestAnimationFrame(gameLoop);
     }
 
     gameLoop();
 
-    function lanzarBomba(bola, target, offsetLat = 0, offsetLng = 0) {
+    function lanzarBomba() {
+        lanzarBombaDesde(bolaUSA, bolaCanada);
+        lanzarBombaDesde(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
+    }
+
+    function lanzarBombaDesde(bola, target, offsetLat = 0, offsetLng = 0) {
         var bombLatLng = [target.getLatLng().lat + offsetLat, target.getLatLng().lng + offsetLng];
         var bomba = L.circleMarker(bombLatLng, {
             color: 'black',
@@ -120,15 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 2000);
     }
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'f') {
-            lanzarBomba(bolaUSA, bolaCanada);
-            lanzarBomba(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
-        }
-    });
-
     function bolaCanadaAtaca() {
-        lanzarBomba(bolaCanada, bolaUSA);
+        lanzarBombaDesde(bolaCanada, bolaUSA);
     }
 
     setInterval(bolaCanadaAtaca, 5000);
