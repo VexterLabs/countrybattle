@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batalla de Bolas del Mundo</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .bola-pais {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 10px;
+            position: absolute;
+        }
+        .usa { background-color: #3C3B6E; border: 5px solid #B22234; }
+        .canada { background-color: #FF0000; border: 5px solid #FFFFFF; }
+        #marcador {
+            font-size: 24px;
+            margin: 20px;
+        }
+        #reiniciar {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Batalla de Bolas del Mundo</h1>
+    <div id="marcador">USA: 0 | Canadá: 0</div>
+    <div class="bola-pais usa"></div>
+    <div class="bola-pais canada"></div>
+    <button id="reiniciar">Reiniciar</button>
+    <script>
+        let puntajeUSA = 0;
+        let puntajeCanada = 0;
+        
+        const marcador = document.getElementById('marcador');
+        const bolaUSA = document.querySelector('.usa');
+        const bolaCanada = document.querySelector('.canada');
+        const reiniciarBtn = document.getElementById('reiniciar');
+        
+        function moverBola(bola) {
+            bola.style.top = Math.random() * window.innerHeight + 'px';
+            bola.style.left = Math.random() * window.innerWidth + 'px';
+        }
+        
+        function actualizarMarcador() {
+            marcador.textContent = `USA: ${puntajeUSA} | Canadá: ${puntajeCanada}`;
+        }
+        
+        bolaUSA.addEventListener('click', () => {
+            puntajeUSA++;
+            actualizarMarcador();
+            moverBola(bolaUSA);
+        });
+        
+        bolaCanada.addEventListener('click', () => {
+            puntajeCanada++;
+            actualizarMarcador();
+            moverBola(bolaCanada);
+        });
+        
+        reiniciarBtn.addEventListener('click', () => {
+            puntajeUSA = 0;
+            puntajeCanada = 0;
+            actualizarMarcador();
+        });
+        
+        moverBola(bolaUSA);
+        moverBola(bolaCanada);
+    </script>
+</body>
+</html>
