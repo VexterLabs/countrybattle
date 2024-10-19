@@ -15,9 +15,8 @@
             height: 50px;
             border-radius: 50%;
             position: absolute;
+            background-size: cover;
         }
-        .usa { background-color: #3C3B6E; border: 5px solid #B22234; }
-        .canada { background-color: #FF0000; border: 5px solid #FFFFFF; }
         #marcador {
             font-size: 24px;
             margin: 20px;
@@ -31,25 +30,32 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
         // Crear el mapa
-        var map = L.map('map').setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
+        var map = L.map('map', {
+            zoomControl: false, // Desactivar control de zoom
+            scrollWheelZoom: false, // Desactivar zoom con la rueda del ratón
+            doubleClickZoom: false, // Desactivar zoom con doble clic
+            boxZoom: false // Desactivar zoom con el cuadro
+        }).setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         // Crear una bola de país
-        var bolaUSA = L.circleMarker([37.7749, -122.4194], {
-            color: '#B22234',
-            fillColor: '#3C3B6E',
-            fillOpacity: 1,
-            radius: 10
+        var bolaUSA = L.marker([37.7749, -122.4194], {
+            icon: L.divIcon({
+                className: 'bola-pais',
+                html: '<div style="background-image: url(\'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg\');"></div>',
+                iconSize: [50, 50]
+            })
         }).addTo(map).bindPopup('Estados Unidos');
 
-        var bolaCanada = L.circleMarker([56.1304, -106.3468], {
-            color: '#FFFFFF',
-            fillColor: '#FF0000',
-            fillOpacity: 1,
-            radius: 10
+        var bolaCanada = L.marker([56.1304, -106.3468], {
+            icon: L.divIcon({
+                className: 'bola-pais',
+                html: '<div style="background-image: url(\'https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg\');"></div>',
+                iconSize: [50, 50]
+            })
         }).addTo(map).bindPopup('Canadá');
 
         var puntajeUSA = 0;
