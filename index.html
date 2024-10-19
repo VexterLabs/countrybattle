@@ -150,10 +150,11 @@
             }).addTo(map).bindPopup('¡Bomba!');
             setTimeout(() => {
                 map.removeLayer(bomba);
-                target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });
                 if (bola === bolaUSA) {
+                    bolaCanada.getElement().style.backgroundColor = '#3C3B6E';
                     puntajeUSA++;
                 } else {
+                    bolaUSA.getElement().style.backgroundColor = '#FF0000';
                     puntajeCanada++;
                 }
                 actualizarMarcador();
