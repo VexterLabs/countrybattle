@@ -66,6 +66,21 @@ document.addEventListener('DOMContentLoaded', function() {
         bazucaUSA.setLatLng([lat, lng]);
     }
 
+    function moverBolaConTeclado() {
+        var lat = bolaUSA.getLatLng().lat;
+        var lng = bolaUSA.getLatLng().lng;
+        if (keys['w']) lat += velocidad;
+        if (keys['a']) lng -= velocidad;
+        if (keys['s']) lat -= velocidad;
+        if (keys['d']) lng += velocidad;
+        var bounds = map.getBounds();
+        if (!bounds.contains([lat, lng])) {
+            return;
+        }
+        bolaUSA.setLatLng([lat, lng]);
+        bazucaUSA.setLatLng([lat, lng]);
+    }
+
     function moverBolaContraria(bola, bazuca) {
         var lat = bola.getLatLng().lat;
         var lng = bola.getLatLng().lng;
@@ -86,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function gameLoop() {
+        moverBolaConTeclado();
         moverBolaContraria(bolaCanada, bazucaCanada);
         requestAnimationFrame(gameLoop);
     }
