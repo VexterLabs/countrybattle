@@ -111,17 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
     gameLoop();
 
     function lanzarBomba() {
-        lanzarBombaDesde(bolaUSA, bolaCanada);
-        lanzarBombaDesde(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
+        lanzarBombaDesde(bolaUSA);
+        lanzarBombaDesde(bolaUSA, 0.5, 0.5); // Segunda bomba en una ubicación cercana
     }
 
     function lanzarBombaDesde(bola, target, offsetLat = 0, offsetLng = 0) {
         var bombLatLng = [target.getLatLng().lat + offsetLat, target.getLatLng().lng + offsetLng];
         var bomba = L.circleMarker(bombLatLng, {
-            color: 'black',
-            fillColor: 'black',
-            fillOpacity: 1,
-            radius: 5
+            color: 'red',
+            fillColor: 'red',
+            fillOpacity: 10,
+            radius: 50
         }).addTo(map).bindPopup('¡Bomba!');
         setTimeout(() => {
             map.removeLayer(bomba);
@@ -138,9 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 puntajeCanada++;
                 bombedByCanada.push(target.getPopup().getContent());
                 if (target === bolaUSA) {
+                    alert("¡La bola de Estados Unidos ha bombardeado Canada! Fin de la partida.");
+                    mostrarEstadisticas();
+                } else {
                     alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
-                }
             }
             actualizarMarcador();
             checarGanador();
