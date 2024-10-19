@@ -177,12 +177,12 @@
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'f') {
-                lanzarBomba(bolaUSA, usaPolygon, 'blue');
+                lanzarBomba(bolaCanada, canadaPolygon, 'blue');
             }
         });
 
         function bolaCanadaAtaca() {
-            lanzarBomba(bolaCanada, canadaPolygon, 'red');
+            lanzarBomba(bolaUSA, usaPolygon, 'red');
         }
 
         setInterval(bolaCanadaAtaca, 5000);
