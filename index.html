@@ -51,9 +51,11 @@
             doubleClickZoom: false, // Desactivar zoom con doble clic
             boxZoom: false // Desactivar zoom con el cuadro
         }).setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
 
         // Crear una bola de país
         var bolaUSA = L.marker([37.7749, -122.4194], {
