@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var puntajeUSA = 0;
     var puntajeCanada = 0;
+    var bombedByUSA = [];
+    var bombedByCanada = [];
     var keys = {};
     var velocidad = 0.5;
     const marcador = document.getElementById('marcador');
@@ -131,15 +133,42 @@ document.addEventListener('DOMContentLoaded', function() {
             ], { color: bola.options.icon.options.className.includes('usa') ? 'blue' : 'red' }).addTo(map);
             if (bola.options.icon.options.className.includes('usa')) {
                 puntajeUSA++;
+                bombedByUSA.push(bombLatLng);
             } else {
                 puntajeCanada++;
+                bombedByCanada.push(bombLatLng);
                 if (target === bolaUSA) {
                     alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
-                    location.reload(); // Reinicia el juego
+                    mostrarEstadisticas();
                 }
             }
             actualizarMarcador();
+            checarGanador();
         }, 2000);
+    }
+
+    function mostrarEstadisticas() {
+        var estadisticas = `
+            <h2>Estadísticas de la partida</h2>
+            <p>Países bombardeados por USA:</p>
+            <ul>${bombedByUSA.map(coord => `<li>${coord}</li>`).join('')}</ul>
+            <p>Países bombardeados por Canadá:</p>
+            <ul>${bombedByCanada.map(coord => `<li>${coord}</li>`).join('')}</ul>
+        `;
+        var div = document.createElement('div');
+        div.innerHTML = estadisticas;
+        document.body.appendChild(div);
+    }
+
+    function checarGanador() {
+        var totalPaises = 2; // Ajusta según el número de países en tu juego
+        if (bombedByUSA.length >= totalPaises) {
+            alert("¡USA ha bombardeado todos los países y gana la partida!");
+            mostrarEstadisticas();
+        } else if (bombedByCanada.length >= totalPaises) {
+            alert("¡Canadá ha bombardeado todos los países y gana la partida!");
+            mostrarEstadisticas();
+        }
     }
 
     document.addEventListener('keydown', function(e) {
