@@ -18,10 +18,15 @@
         }
         .usa { background-color: #3C3B6E; border: 5px solid #B22234; }
         .canada { background-color: #FF0000; border: 5px solid #FFFFFF; }
+        #marcador {
+            font-size: 24px;
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
     <h1>Batalla de Bolas del Mundo</h1>
+    <div id="marcador">USA: 0 | Canadá: 0</div>
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -47,8 +52,12 @@
             radius: 10
         }).addTo(map).bindPopup('Canadá');
 
-        // Mover las bolas con WASD
+        var puntajeUSA = 0;
+        var puntajeCanada = 0;
         var keys = {};
+        var velocidad = 0.5;
+
+        const marcador = document.getElementById('marcador');
 
         document.addEventListener('keydown', function(e) {
             keys[e.key] = true;
@@ -62,17 +71,33 @@
             var newLat = lat;
             var newLng = lng;
 
-            if (keys['w']) newLat += 0.1;
-            if (keys['a']) newLng -= 0.1;
-            if (keys['s']) newLat -= 0.1;
-            if (keys['d']) newLng += 0.1;
+            if (keys['w']) newLat += velocidad;
+            if (keys['a']) newLng -= velocidad;
+            if (keys['s']) newLat -= velocidad;
+            if (keys['d']) newLng += velocidad;
 
             bola.setLatLng([newLat, newLng]);
         }
 
+        function moverBolaContraria(bola) {
+            var lat = bola.getLatLng().lat;
+            var lng = bola.getLatLng().lng;
+            var direction = Math.random() * 360;
+            var distance = velocidad;
+
+            lat += distance * Math.cos(direction);
+            lng += distance * Math.sin(direction);
+
+            bola.setLatLng([lat, lng]);
+        }
+
+        function actualizarMarcador() {
+            marcador.textContent = `USA: ${puntajeUSA} | Canadá: ${puntajeCanada}`;
+        }
+
         function gameLoop() {
             moverBola(bolaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
-            moverBola(bolaCanada, bolaCanada.getLatLng().lat, bolaCanada.getLatLng().lng);
+            moverBolaContraria(bolaCanada);
             requestAnimationFrame(gameLoop);
         }
 
@@ -91,11 +116,24 @@
                 map.removeLayer(bomba);
                 // Lógica adicional para cambiar color del país si pierde
                 target.setStyle({ fillColor: bola.options.fillColor, color: bola.options.color });
+                if (bola === bolaUSA) {
+                    puntajeUSA++;
+                } else {
+                    puntajeCanada++;
+                }
+                actualizarMarcador();
             }, 2000);
         }
 
-        bolaUSA.on('click', () => lanzarBomba(bolaUSA, bolaCanada));
-        bolaCanada.on('click', () => lanzarBomba(bolaCanada, bolaUSA));
+        document.addEventListener('keydown', function(e) {
+            if (e.key === ' ') {
+                lanzarBomba(bolaUSA, bolaCanada);
+            }
+        });
+
+        setInterval(() => {
+            lanzarBomba(bolaCanada, bolaUSA);
+        }, 5000); // La bola contraria lanza bombas cada 5 segundos
     </script>
 </body>
 </html>
