@@ -29,11 +29,11 @@
             position: absolute;
             background-size: cover;
         }
-        .arma-usa {
-            background-image: url('https://tse2.mm.bing.net/th?id=OIG1.A1IYoc1Xk469jiMY.WI7&pid=ImgGn'); /* Asegúrate de tener esta imagen en tu servidor */
+        .bazuca-usa {
+            background-image: url('https://example.com/bazuca_usa.png'); /* Asegúrate de tener esta imagen en tu servidor */
         }
-        .arma-canada {
-            background-image: url('https://tse2.mm.bing.net/th?id=OIG1.A1IYoc1Xk469jiMY.WI7&pid=ImgGn'); /* Asegúrate de tener esta imagen en tu servidor */
+        .bazuca-canada {
+            background-image: url('https://example.com/bazuca_canada.png'); /* Asegúrate de tener esta imagen en tu servidor */
         }
         #marcador {
             font-size: 24px;
@@ -74,17 +74,17 @@
             })
         }).addTo(map).bindPopup('Canadá');
 
-        // Añadir armas a las bolas
-        var armaUSA = L.marker([37.7749, -122.4194], {
+        // Añadir bazucas a las bolas
+        var bazucaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
-                className: 'arma arma-usa',
+                className: 'arma bazuca-usa',
                 iconSize: [20, 20]
             })
         }).addTo(map);
 
-        var armaCanada = L.marker([56.1304, -106.3468], {
+        var bazucaCanada = L.marker([56.1304, -106.3468], {
             icon: L.divIcon({
-                className: 'arma arma-canada',
+                className: 'arma bazuca-canada',
                 iconSize: [20, 20]
             })
         }).addTo(map);
@@ -104,7 +104,7 @@
             keys[e.key] = false;
         });
 
-        function moverBola(bola, arma, lat, lng) {
+        function moverBola(bola, bazuca, lat, lng) {
             var newLat = lat;
             var newLng = lng;
 
@@ -113,11 +113,17 @@
             if (keys['s']) newLat -= velocidad;
             if (keys['d']) newLng += velocidad;
 
+            // Evitar que la bola se salga del mapa
+            var bounds = map.getBounds();
+            if (!bounds.contains([newLat, newLng])) {
+                return;
+            }
+
             bola.setLatLng([newLat, newLng]);
-            arma.setLatLng([newLat, newLng]);
+            bazuca.setLatLng([newLat, newLng]);
         }
 
-        function moverBolaContraria(bola, arma) {
+        function moverBolaContraria(bola, bazuca) {
             var lat = bola.getLatLng().lat;
             var lng = bola.getLatLng().lng;
             var direction = Math.random() * 360;
@@ -126,8 +132,14 @@
             lat += distance * Math.cos(direction);
             lng += distance * Math.sin(direction);
 
+            // Evitar que la bola se salga del mapa
+            var bounds = map.getBounds();
+            if (!bounds.contains([lat, lng])) {
+                return;
+            }
+
             bola.setLatLng([lat, lng]);
-            arma.setLatLng([lat, lng]);
+            bazuca.setLatLng([lat, lng]);
         }
 
         function actualizarMarcador() {
@@ -135,8 +147,8 @@
         }
 
         function gameLoop() {
-            moverBola(bolaUSA, armaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
-            moverBolaContraria(bolaCanada, armaCanada);
+            moverBola(bolaUSA, bazucaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
+            moverBolaContraria(bolaCanada, bazucaCanada);
             requestAnimationFrame(gameLoop);
         }
 
@@ -150,11 +162,11 @@
                 fillOpacity: 1,
                 radius: 5
             }).addTo(map).bindPopup('¡Bomba!');
-            
+
             setTimeout(() => {
                 map.removeLayer(bomba);
-                // Lógica adicional para cambiar color del país si pierde
-                target.setStyle({ fillColor: bola.options.fillColor, color: bola.options.color });
+                // Cambiar color del país bombardeado al del país atacante
+                target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });
                 if (bola === bolaUSA) {
                     puntajeUSA++;
                 } else {
@@ -165,7 +177,7 @@
         }
 
         document.addEventListener('keydown', function(e) {
-            if (e.key === ' ') {
+            if (e.key === 'F') {
                 lanzarBomba(bolaUSA, bolaCanada);
             }
         });
