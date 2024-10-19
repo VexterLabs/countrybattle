@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
+                }
             }
             actualizarMarcador();
             checarGanador();
@@ -185,8 +186,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function bolaCanadaAtaca() {
-        lanzarBombaDesde(bolaCanada, bolaUSA);
+        lanzarBombaDesde(bolaCanada);
     }
 
-    setInterval(bolaCanadaAtaca, 5000);
+    setInterval(bolaCanadaAtaca, 100);
 });
