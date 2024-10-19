@@ -156,7 +156,7 @@
                 map.removeLayer(bomba);
                 // Cambiar color del país bombardeado al del país atacante
                 target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });
-                if (bola === bolaUSA) 
+                if (bola === bolaUSA) {
                     puntajeUSA++;
                 } else {
                     puntajeCanada++;
