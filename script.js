@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 [bombLatLng[0] - 0.5, bombLatLng[1] + 0.5],
                 [bombLatLng[0] + 0.5, bombLatLng[1] + 0.5]
             ], { color: bola.options.icon.options.className.includes('usa') ? 'blue' : 'red' }).addTo(map);
-            if (bola === bolaUSA) {
+            if (bola.options.icon.options.className.includes('usa')) {
                 puntajeUSA++;
             } else {
                 puntajeCanada++;
@@ -141,6 +141,12 @@ document.addEventListener('DOMContentLoaded', function() {
             actualizarMarcador();
         }, 2000);
     }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'f') {
+            lanzarBomba();
+        }
+    });
 
     function bolaCanadaAtaca() {
         lanzarBombaDesde(bolaCanada, bolaUSA);
