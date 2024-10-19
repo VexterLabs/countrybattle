@@ -111,17 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
     gameLoop();
 
     function lanzarBomba() {
-        lanzarBombaDesde(bolaUSA);
-        lanzarBombaDesde(bolaUSA, 0.5, 0.5); // Segunda bomba en una ubicación cercana
+        lanzarBombaDesde(bolaUSA, bolaCanada);
+        lanzarBombaDesde(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
     }
 
     function lanzarBombaDesde(bola, target, offsetLat = 0, offsetLng = 0) {
         var bombLatLng = [target.getLatLng().lat + offsetLat, target.getLatLng().lng + offsetLng];
         var bomba = L.circleMarker(bombLatLng, {
-            color: 'red',
-            fillColor: 'red',
+            color: 'black',
+            fillColor: 'black',
             fillOpacity: 10,
-            radius: 50
+            radius: 10
         }).addTo(map).bindPopup('¡Bomba!');
         setTimeout(() => {
             map.removeLayer(bomba);
@@ -137,11 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 puntajeCanada++;
                 bombedByCanada.push(target.getPopup().getContent());
-                if (target === bolaUSA) {
-                    alert("¡La bola de Estados Unidos ha bombardeado Canada! Fin de la partida.");
-                    mostrarEstadisticas();
-                } else {
-                    alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
+                if (target === bolaUSA ? bolaCanada) {
+                    //alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
                 }
             }
@@ -152,8 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarEstadisticas() {
         var estadisticasDiv = document.getElementById('estadisticas');
-        //var gameDiv = document.getElementById('marcador');
-        //var gameDiv = document.getElementById('map');
         var bombedByUSAList = document.getElementById('bombedByUSA');
         var bombedByCanadaList = document.getElementById('bombedByCanada');
 
@@ -161,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
         bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
         
         estadisticasDiv.classList.remove('hidden');
-        //gameDiv.classList.remove('block');
     }
 
     function checarGanador() {
@@ -186,8 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function bolaCanadaAtaca() {
-        lanzarBombaDesde(bolaCanada);
+        lanzarBombaDesde(bolaCanada, bolaUSA);
     }
 
-    setInterval(bolaCanadaAtaca, 100);
+    setInterval(bolaCanadaAtaca, 1000);
 });
