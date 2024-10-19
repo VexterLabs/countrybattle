@@ -14,8 +14,26 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
+            background-size: cover;
+            position: absolute;
+        }
+        .bola-usa {
+            background-image: url('https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg');
+        }
+        .bola-canada {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg');
+        }
+        .arma {
+            width: 20px;
+            height: 20px;
             position: absolute;
             background-size: cover;
+        }
+        .arma-usa {
+            background-image: url('https://tse2.mm.bing.net/th?id=OIG1.A1IYoc1Xk469jiMY.WI7&pid=ImgGn'); /* Asegúrate de tener esta imagen en tu servidor */
+        }
+        .arma-canada {
+            background-image: url('https://tse2.mm.bing.net/th?id=OIG1.A1IYoc1Xk469jiMY.WI7&pid=ImgGn'); /* Asegúrate de tener esta imagen en tu servidor */
         }
         #marcador {
             font-size: 24px;
@@ -44,19 +62,32 @@
         // Crear una bola de país
         var bolaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
-                className: 'bola-pais',
-                html: '<div style="background-image: url(\'https://th.bing.com/th/id/OIP.w1b4Mwll6AGOEfWqv4sEBgHaHa?w=187&h=187&c=7&r=0&o=5&pid=1.7\');"></div>',
+                className: 'bola-pais bola-usa',
                 iconSize: [50, 50]
             })
         }).addTo(map).bindPopup('Estados Unidos');
 
         var bolaCanada = L.marker([56.1304, -106.3468], {
             icon: L.divIcon({
-                className: 'bola-pais',
-                html: '<div style="background-image: url(\'https://th.bing.com/th/id/OIP.3MQzFnBkyqPz_BzGCeT2RwHaHw?w=180&h=189&c=7&r=0&o=5&pid=1.7\');"></div>',
+                className: 'bola-pais bola-canada',
                 iconSize: [50, 50]
             })
         }).addTo(map).bindPopup('Canadá');
+
+        // Añadir armas a las bolas
+        var armaUSA = L.marker([37.7749, -122.4194], {
+            icon: L.divIcon({
+                className: 'arma arma-usa',
+                iconSize: [20, 20]
+            })
+        }).addTo(map);
+
+        var armaCanada = L.marker([56.1304, -106.3468], {
+            icon: L.divIcon({
+                className: 'arma arma-canada',
+                iconSize: [20, 20]
+            })
+        }).addTo(map);
 
         var puntajeUSA = 0;
         var puntajeCanada = 0;
@@ -73,7 +104,7 @@
             keys[e.key] = false;
         });
 
-        function moverBola(bola, lat, lng) {
+        function moverBola(bola, arma, lat, lng) {
             var newLat = lat;
             var newLng = lng;
 
@@ -83,9 +114,10 @@
             if (keys['d']) newLng += velocidad;
 
             bola.setLatLng([newLat, newLng]);
+            arma.setLatLng([newLat, newLng]);
         }
 
-        function moverBolaContraria(bola) {
+        function moverBolaContraria(bola, arma) {
             var lat = bola.getLatLng().lat;
             var lng = bola.getLatLng().lng;
             var direction = Math.random() * 360;
@@ -95,6 +127,7 @@
             lng += distance * Math.sin(direction);
 
             bola.setLatLng([lat, lng]);
+            arma.setLatLng([lat, lng]);
         }
 
         function actualizarMarcador() {
@@ -102,8 +135,8 @@
         }
 
         function gameLoop() {
-            moverBola(bolaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
-            moverBolaContraria(bolaCanada);
+            moverBola(bolaUSA, armaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
+            moverBolaContraria(bolaCanada, armaCanada);
             requestAnimationFrame(gameLoop);
         }
 
