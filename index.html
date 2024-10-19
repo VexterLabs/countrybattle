@@ -1,189 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batalla de Bolas del Mundo</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
-        #map {
-            height: 600px;
-            width: 100%;
-        }
-        .bola-pais {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-size: cover;
-            position: absolute;
-        }
-        .bola-usa {
-            background-image: url('https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg');
-        }
-        .bola-canada {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg');
-        }
-        .arma {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            background-size: cover;
-        }
-        .bazuca {
-            background-image: url('bazuca.png'); /* Imagen de bazuca cerca del index.html */
-        }
-        #marcador {
-            font-size: 24px;
-            margin: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batalla de Bolas del Mundo</title>[^2^][2]
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />[^3^][3]
+<style>
+#map {
+    height: 600px;[^4^][4]
+    width: 100%;[^5^][5]
+}
+.bola-pais {
+    width: 50px;[^7^][7]
+    height: 50px;
+    border-radius: 50%;[^9^][9]
+    background-size: cover;[^10^][10]
+    position: absolute;
+}
+.bola-usa {[^6^][6]
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg');[^12^][12][^13^][13]
+}
+.bola-canada {[^11^][11]
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg');[^13^][13][^12^][12]
+}
+.arma {
+    width: 20px;[^8^][8]
+    height: 20px;
+    position: absolute;
+    background-size: cover;[^10^][10]
+}
+.bazuca {
+    background-image: url('bazuca.png'); /* Imagen de bazuca cerca del index.html */[^15^][15][^16^][16]
+}
+#marcador {
+    font-size: 24px;[^17^][17]
+    margin: 20px;[^14^][14][^8^][8]
+}
+</style>
 </head>
 <body>
-    <h1>Country Balls World Battle</h1>
-    <div id="marcador">USA: 0 | Canadá: 0</div>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Crear el mapa
-        var map = L.map('map', {
-            zoomControl: false, // Desactivar control de zoom
-            scrollWheelZoom: false, // Desactivar zoom con la rueda del ratón
-            doubleClickZoom: false, // Desactivar zoom con doble clic
-            boxZoom: false // Desactivar zoom con el cuadro
-        }).setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
+<h1>Batalla de Bolas del Mundo</h1>[^2^][2]
+<div id="marcador">USA: 0 | Canadá: 0</div>[^18^][18]
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>[^3^][3]
+<script>
+// Crear el mapa
+var map = L.map('map', {[^19^][19]
+    zoomControl: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false
+}).setView([20, 0], 2);[^20^][20]
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {[^21^][21]
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'[^22^][22]
+}).addTo(map);[^23^][23]
 
-        // Crear una bola de país
-        var bolaUSA = L.marker([37.7749, -122.4194], {
-            icon: L.divIcon({
-                className: 'bola-pais bola-usa',
-                iconSize: [50, 50]
-            })
-        }).addTo(map).bindPopup('Estados Unidos');
+// Crear una bola de país[^27^][27]
+var bolaUSA = L.marker([37.7749, -122.4194], {[^28^][28][^29^][29]
+    icon: L.divIcon({[^31^][31]
+        className: 'bola-pais bola-usa',[^32^][32][^33^][33]
+        iconSize: [50, 50][^34^][34]
+    })
+}).addTo(map).bindPopup('Estados Unidos');[^26^][26][^24^][24]
 
-        var bolaCanada = L.marker([56.1304, -106.3468], {
-            icon: L.divIcon({
-                className: 'bola-pais bola-canada',
-                iconSize: [50, 50]
-            })
-        }).addTo(map).bindPopup('Canadá');
+var bolaCanada = L.marker([56.1304, -106.3468], {[^30^][30][^35^][35]
+    icon: L.divIcon({[^31^][31]
+        className: 'bola-pais bola-canada',[^33^][33][^32^][32]
+        iconSize: [50, 50][^34^][34]
+    })
+}).addTo(map).bindPopup('Canadá');[^24^][24][^26^][26]
 
-        // Añadir bazucas a las bolas
-        var bazucaUSA = L.marker([37.7749, -122.4194], {
-            icon: L.divIcon({
-                className: 'arma bazuca',
-                iconSize: [20, 20]
-            })
-        }).addTo(map);
+// Añadir bazucas a las bolas
+var bazucaUSA = L.marker([37.7749, -122.4194], {[^29^][29][^28^][28]
+    icon: L.divIcon({[^31^][31]
+        className: 'arma bazuca',[^36^][36][^37^][37]
+        iconSize: [20, 20][^38^][38]
+    })
+}).addTo(map);[^23^][23]
 
-        var bazucaCanada = L.marker([56.1304, -106.3468], {
-            icon: L.divIcon({
-                className: 'arma bazuca',
-                iconSize: [20, 20]
-            })
-        }).addTo(map);
+var bazucaCanada = L.marker([56.1304, -106.3468], {[^35^][35][^30^][30]
+    icon: L.divIcon({[^31^][31]
+        className: 'arma bazuca',[^36^][36][^37^][37]
+        iconSize: [20, 20][^38^][38]
+    })
+}).addTo(map);[^23^][23]
 
-        var puntajeUSA = 0;
-        var puntajeCanada = 0;
-        var keys = {};
-        var velocidad = 0.5;
+var puntajeUSA = 0;[^39^][39]
+var puntajeCanada = 0;
+var keys = {};
+var velocidad = 0.5;[^40^][40]
+const marcador = document.getElementById('marcador');[^41^][41]
 
-        const marcador = document.getElementById('marcador');
+document.addEventListener('keydown', function(e) {[^42^][42][^43^][43]
+    keys[e.key] = true;[^44^][44]
+});
 
-        document.addEventListener('keydown', function(e) {
-            keys[e.key] = true;
-        });
+document.addEventListener('keyup', function(e) {[^43^][43][^42^][42]
+    keys[e.key] = false;[^45^][45]
+});
 
-        document.addEventListener('keyup', function(e) {
-            keys[e.key] = false;
-        });
+function moverBola(bola, bazuca, lat, lng) {[^46^][46][^47^][47]
+    var newLat = lat;[^50^][50]
+    var newLng = lng;[^52^][52]
+    if (keys['w']) newLat += velocidad;[^54^][54][^55^][55]
+    if (keys['a']) newLng -= velocidad;[^56^][56][^57^][57]
+    if (keys['s']) newLat -= velocidad;[^55^][55][^54^][54]
+    if (keys['d']) newLng += velocidad;[^57^][57][^56^][56]
 
-        function moverBola(bola, bazuca, lat, lng) {
-            var newLat = lat;
-            var newLng = lng;
+    // Evitar que la bola se salga del mapa[^58^][58]
+    var bounds = map.getBounds();[^59^][59]
+    if (!bounds.contains([newLat, newLng])) {[^60^][60][^61^][61]
+        return;
+    }
 
-            if (keys['w']) newLat += velocidad;
-            if (keys['a']) newLng -= velocidad;
-            if (keys['s']) newLat -= velocidad;
-            if (keys['d']) newLng += velocidad;
+    bola.setLatLng([newLat, newLng]);[^62^][62]
+    bazuca.setLatLng([newLat, newLng]);
+}
 
-            // Evitar que la bola se salga del mapa
-            var bounds = map.getBounds();
-            if (!bounds.contains([newLat, newLng])) {
-                return;
-            }
+function moverBolaContraria(bola, bazuca) {[^48^][48][^64^][64]
+    var lat = bola.getLatLng().lat;[^51^][51][^53^][53]
+    var lng = bola.getLatLng().lng;
+    var direction = Math.random() * 360;[^65^][65]
+    var distance = velocidad;
 
-            bola.setLatLng([newLat, newLng]);
-            bazuca.setLatLng([newLat, newLng]);
+    lat += distance * Math.cos(direction);[^66^][66]
+    lng += distance * Math.sin(direction);
+
+    // Evitar que la bola se salga del mapa[^58^][58]
+    var bounds = map.getBounds();[^59^][59]
+    if (!bounds.contains([lat, lng])) {[^61^][61][^60^][60]
+        return;
+    }
+
+    bola.setLatLng([lat, lng]);[^63^][63]
+    bazuca.setLatLng([lat, lng]);
+}
+
+function actualizarMarcador() {
+    marcador.textContent = `USA: ${puntajeUSA} | Canadá: ${puntajeCanada}`;[^67^][67]
+}
+
+function gameLoop() {[^68^][68]
+    moverBola(bolaUSA, bazucaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);[^49^][49][^69^][69]
+    moverBolaContraria(bolaCanada, bazucaCanada);[^64^][64]
+    requestAnimationFrame(gameLoop);[^70^][70]
+}
+
+gameLoop();[^68^][68]
+
+// Lógica de lanzamientos de bombas
+function lanzarBomba(bola, target) {[^71^][71]
+    var bomba = L.circleMarker(target.getLatLng(), {[^72^][72]
+        color: 'black',[^73^][73]
+        fillColor: 'black',[^74^][74]
+        fillOpacity: 1,[^75^][75]
+        radius: 5
+    }).addTo(map).bindPopup('¡Bomba!');[^25^][25][^24^][24]
+
+    setTimeout(() => {
+        map.removeLayer(bomba);[^76^][76]
+
+        // Cambiar color del país bombardeado al del país atacante[^77^][77]
+        target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });[^78^][78]
+
+        if (bola === bolaUSA) {
+            puntajeUSA++;
+        } else {
+            puntajeCanada++;
         }
 
-        function moverBolaContraria(bola, bazuca) {
-            var lat = bola.getLatLng().lat;
-            var lng = bola.getLatLng().lng;
-            var direction = Math.random() * 360;
-            var distance = velocidad;
+        actualizarMarcador();
+    }, 2000);
+}
 
-            lat += distance * Math.cos(direction);
-            lng += distance * Math.sin(direction);
+document.addEventListener('keydown', function(e) {[^42^][42][^43^][43]
+    if (e.key === 'f') {[^79^][79]
+        lanzarBomba(bolaUSA, bolaCanada);[^80^][80][^81^][81]
+    }
+});
 
-            // Evitar que la bola se salga del mapa
-            var bounds = map.getBounds();
-            if (!bounds.contains([lat, lng])) {
-                return;
-            }
+function bolaCanadaAtaca() {[^82^][82]
+    lanzarBomba(bolaCanada, bolaUSA);[^81^][81][^80^][80]
+}
 
-            bola.setLatLng([lat, lng]);
-            bazuca.setLatLng([lat, lng]);
-        }
+setInterval(bolaCanadaAtaca, 5000); // La bola de Canadá ataca automáticamente cada 5 segundos[^83^][83][^85^][85]
 
-        function actualizarMarcador() {
-            marcador.textContent = `USA: ${puntajeUSA} | Canadá: ${puntajeCanada}`;
-        }
-
-        function gameLoop() {
-            moverBola(bolaUSA, bazucaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
-            moverBolaContraria(bolaCanada, bazucaCanada);
-            requestAnimationFrame(gameLoop);
-        }
-
-        gameLoop();
-
-        // Lógica de lanzamientos de bombas
-        function lanzarBomba(bola, target) {
-            var bomba = L.circleMarker(target.getLatLng(), {
-                color: 'black',
-                fillColor: 'black',
-                fillOpacity: 1,
-                radius: 5
-            }).addTo(map).bindPopup('¡Bomba!');
-
-            setTimeout(() => {
-                map.removeLayer(bomba);
-                // Cambiar color del país bombardeado al del país atacante
-                target.setStyle({ fillColor: bola.options.icon.options.className.includes('usa') ? '#3C3B6E' : '#FF0000' });
-                if (bola === bolaUSA) {
-                    puntajeUSA++;
-                } else {
-                    puntajeCanada++;
-                }
-                actualizarMarcador();
-            }, 2000);
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'f') {
-                lanzarBomba(bolaUSA, bolaCanada);
-            }
-        });
-
-        function bolaCanadaAtaca() {
-            lanzarBomba(bolaCanada, bolaUSA);
-        }
-
-        setInterval(bolaCanadaAtaca, 5000); // La bola de Canadá ataca automáticamente cada 5 segundos
-    </script>
+</script>
 </body>
 </html>
