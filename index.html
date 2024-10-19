@@ -4,80 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalla de Bolas del Mundo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        body {
-            background-color: #f0f0f0;
-            text-align: center;
-            font-family: Arial, sans-serif;
+        #map {
+            height: 600px;
+            width: 100%;
         }
         .bola-pais {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            display: inline-block;
-            margin: 10px;
             position: absolute;
         }
         .usa { background-color: #3C3B6E; border: 5px solid #B22234; }
         .canada { background-color: #FF0000; border: 5px solid #FFFFFF; }
-        #marcador {
-            font-size: 24px;
-            margin: 20px;
-        }
-        #reiniciar {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
     <h1>Batalla de Bolas del Mundo</h1>
-    <div id="marcador">USA: 0 | Canadá: 0</div>
-    <div class="bola-pais usa"></div>
-    <div class="bola-pais canada"></div>
-    <button id="reiniciar">Reiniciar</button>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        let puntajeUSA = 0;
-        let puntajeCanada = 0;
-        
-        const marcador = document.getElementById('marcador');
-        const bolaUSA = document.querySelector('.usa');
-        const bolaCanada = document.querySelector('.canada');
-        const reiniciarBtn = document.getElementById('reiniciar');
-        
-        function moverBola(bola) {
-            bola.style.top = Math.random() * window.innerHeight + 'px';
-            bola.style.left = Math.random() * window.innerWidth + 'px';
+        // Crear el mapa
+        var map = L.map('map').setView([20, 0], 2); // Coordenadas iniciales y nivel de zoom
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Crear una bola de país
+        var bolaUSA = L.circleMarker([37.7749, -122.4194], {
+            color: '#B22234',
+            fillColor: '#3C3B6E',
+            fillOpacity: 1,
+            radius: 10
+        }).addTo(map).bindPopup('Estados Unidos');
+
+        var bolaCanada = L.circleMarker([56.1304, -106.3468], {
+            color: '#FFFFFF',
+            fillColor: '#FF0000',
+            fillOpacity: 1,
+            radius: 10
+        }).addTo(map).bindPopup('Canadá');
+
+        // Mover las bolas con WASD
+        var keys = {};
+
+        document.addEventListener('keydown', function(e) {
+            keys[e.key] = true;
+        });
+
+        document.addEventListener('keyup', function(e) {
+            keys[e.key] = false;
+        });
+
+        function moverBola(bola, lat, lng) {
+            var newLat = lat;
+            var newLng = lng;
+
+            if (keys['w']) newLat += 0.1;
+            if (keys['a']) newLng -= 0.1;
+            if (keys['s']) newLat -= 0.1;
+            if (keys['d']) newLng += 0.1;
+
+            bola.setLatLng([newLat, newLng]);
         }
-        
-        function actualizarMarcador() {
-            marcador.textContent = `USA: ${puntajeUSA} | Canadá: ${puntajeCanada}`;
+
+        function gameLoop() {
+            moverBola(bolaUSA, bolaUSA.getLatLng().lat, bolaUSA.getLatLng().lng);
+            moverBola(bolaCanada, bolaCanada.getLatLng().lat, bolaCanada.getLatLng().lng);
+            requestAnimationFrame(gameLoop);
         }
-        
-        bolaUSA.addEventListener('click', () => {
-            puntajeUSA++;
-            actualizarMarcador();
-            moverBola(bolaUSA);
-        });
-        
-        bolaCanada.addEventListener('click', () => {
-            puntajeCanada++;
-            actualizarMarcador();
-            moverBola(bolaCanada);
-        });
-        
-        reiniciarBtn.addEventListener('click', () => {
-            puntajeUSA = 0;
-            puntajeCanada = 0;
-            actualizarMarcador();
-        });
-        
-        moverBola(bolaUSA);
-        moverBola(bolaCanada);
+
+        gameLoop();
+
+        // Lógica de lanzamientos de bombas
+        function lanzarBomba(bola, target) {
+            var bomba = L.circleMarker(target.getLatLng(), {
+                color: 'black',
+                fillColor: 'black',
+                fillOpacity: 1,
+                radius: 5
+            }).addTo(map).bindPopup('¡Bomba!');
+            
+            setTimeout(() => {
+                map.removeLayer(bomba);
+                // Lógica adicional para cambiar color del país si pierde
+                target.setStyle({ fillColor: bola.options.fillColor, color: bola.options.color });
+            }, 2000);
+        }
+
+        bolaUSA.on('click', () => lanzarBomba(bolaUSA, bolaCanada));
+        bolaCanada.on('click', () => lanzarBomba(bolaCanada, bolaUSA));
     </script>
 </body>
 </html>
