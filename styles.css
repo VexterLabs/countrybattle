@@ -1,0 +1,37 @@
+/* styles.css */
+#map {
+    height: 600px;
+    width: 100%;
+}
+
+.bola-pais {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    position: absolute;
+}
+
+.bola-usa {
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg');
+}
+
+.bola-canada {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg');
+}
+
+.arma {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-size: cover;
+}
+
+.bazuca {
+    background-image: url('bazuca.png');
+}
+
+#marcador {
+    font-size: 24px;
+    margin: 20px;
+}
