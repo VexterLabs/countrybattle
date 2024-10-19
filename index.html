@@ -55,6 +55,21 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // Coordenadas para un polígono sencillo que representa a USA y Canadá
+        var usaPolygon = L.polygon([
+            [49.38, -125.0], // Norte
+            [24.52, -125.0], // Sur
+            [24.52, -66.93], // Sureste
+            [49.38, -66.93]  // Noreste
+        ], {color: 'blue'}).addTo(map);
+
+        var canadaPolygon = L.polygon([
+            [60.00, -140.0], // Noroeste
+            [49.38, -140.0], // Oeste
+            [49.38, -60.0], // Suroeste
+            [60.00, -60.0]  // Este
+        ], {color: 'red'}).addTo(map);
+
         var bolaUSA = L.marker([37.7749, -122.4194], {
             icon: L.divIcon({
                 className: 'bola-pais bola-usa',
@@ -141,7 +156,7 @@
 
         gameLoop();
 
-        function lanzarBomba(bola, target) {
+        function lanzarBomba(bola, target, polygon, color) {
             var bomba = L.circleMarker(target.getLatLng(), {
                 color: 'black',
                 fillColor: 'black',
@@ -150,11 +165,10 @@
             }).addTo(map).bindPopup('¡Bomba!');
             setTimeout(() => {
                 map.removeLayer(bomba);
+                polygon.setStyle({color: color});
                 if (bola === bolaUSA) {
-                    bolaCanada.getElement().style.backgroundColor = '#3C3B6E';
                     puntajeUSA++;
                 } else {
-                    bolaUSA.getElement().style.backgroundColor = '#FF0000';
                     puntajeCanada++;
                 }
                 actualizarMarcador();
@@ -163,12 +177,12 @@
 
         document.addEventListener('keydown', function(e) {
             if (e.key === 'f') {
-                lanzarBomba(bolaUSA, bolaCanada);
+                lanzarBomba(bolaUSA, bolaCanada, canadaPolygon, 'blue');
             }
         });
 
         function bolaCanadaAtaca() {
-            lanzarBomba(bolaCanada, bolaUSA);
+            lanzarBomba(bolaCanada, bolaUSA, usaPolygon, 'red');
         }
 
         setInterval(bolaCanadaAtaca, 5000);
