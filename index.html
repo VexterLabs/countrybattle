@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batalla de Bolas del Mundo</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="styles.css"> <!-- Separa el CSS en otro archivo -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Batalla de Bolas del Mundo</h1>
     <div id="marcador">USA: 0 | Canadá: 0</div>
     <div id="map"></div>
+    <div id="controls">
+        <button onclick="moverBola('up')">Arriba</button>
+        <button onclick="moverBola('left')">Izquierda</button>
+        <button onclick="moverBola('down')">Abajo</button>
+        <button onclick="moverBola('right')">Derecha</button>
+        <button onclick="lanzarBomba()">Lanzar Bomba</button>
+    </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="script.js"></script> <!-- Separa el JavaScript en otro archivo -->
+    <script src="script.js"></script>
 </body>
 </html>
