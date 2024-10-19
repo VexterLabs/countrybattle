@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarEstadisticas() {
         var estadisticasDiv = document.getElementById('estadisticas');
-        var gameDiv = document.getElementById('marcador');
-        var gameDiv = document.getElementById('map');
+        //var gameDiv = document.getElementById('marcador');
+        //var gameDiv = document.getElementById('map');
         var bombedByUSAList = document.getElementById('bombedByUSA');
         var bombedByCanadaList = document.getElementById('bombedByCanada');
 
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
         
         estadisticasDiv.classList.remove('hidden');
-        gameDiv.classList.remove('fixed');
+        //gameDiv.classList.remove('block');
     }
 
     function checarGanador() {
