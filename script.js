@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }).setView([20, 0], 2);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a contributors'
     }).addTo(map);
 
     // Crear bolas y armas
@@ -179,6 +179,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'f') {
             lanzarBomba();
         }
+    });
+
+    document.getElementById('upButton').addEventListener('click', function() {
+        moverBola('up');
+    });
+    document.getElementById('leftButton').addEventListener('click', function() {
+        moverBola('left');
+    });
+    document.getElementById('downButton').addEventListener('click', function() {
+        moverBola('down');
+    });
+    document.getElementById('rightButton').addEventListener('click', function() {
+        moverBola('right');
+    });
+    document.getElementById('fireButton').addEventListener('click', function() {
+        lanzarBomba();
     });
 
     function bolaCanadaAtaca() {
