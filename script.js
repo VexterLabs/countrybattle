@@ -185,7 +185,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function bolaCanadaAtaca() {
-        lanzarBomba(bolaCanada);
+        lanzarBomba();
+        lanzarBombaDesde(bolaCanada);
     }
 
     setInterval(bolaCanadaAtaca, 5000);
