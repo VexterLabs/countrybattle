@@ -16,7 +16,7 @@
         <button onclick="moverBola('left')">Izquierda</button>
         <button onclick="moverBola('down')">Abajo</button>
         <button onclick="moverBola('right')">Derecha</button>
-        <button onclick="lanzarBombaDesde(bolaUSA)">Lanzar Bomba</button>
+        <button onclick="lanzarBombaDesde('bolaUSA')">Lanzar Bomba</button>
     </div>
     <div id="estadisticas" class="hidden">
         <h2>Estadísticas de la partida</h2>
@@ -24,7 +24,7 @@
         <ul id="bombedByUSA"></ul>
         <p>Países bombardeados por Canadá:</p>
         <ul id="bombedByCanada"></ul>
-        <button onclick="reiniciarJuego()">PLAY</button>
+        <button onclick="reiniciarJuego()" style="display: flex;">PLAY</button>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
