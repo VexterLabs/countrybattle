@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarEstadisticas() {
         var estadisticasDiv = document.getElementById('estadisticas');
+        var estadisticasDiv = document.getElementById('marcador');
+        var estadisticasDiv = document.getElementById('mapa');
         var bombedByUSAList = document.getElementById('bombedByUSA');
         var bombedByCanadaList = document.getElementById('bombedByCanada');
 
