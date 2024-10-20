@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'f') {
-            lanzarBombaDesde(bolaUSA);
+            lanzarBombaDesde(bolaUSA, bolaCanada);
         }
     });
 
