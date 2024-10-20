@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
         
         estadisticasDiv.classList.remove('hidden');
-        //gameDiv.classList.remove('map');
+        gameDiv.classList.remove('map');
     }
 
     function checarGanador() {
