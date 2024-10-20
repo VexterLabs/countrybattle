@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 [bombLatLng[0] - 0.5, bombLatLng[1] - 0.5],
                 [bombLatLng[0] - 0.5, bombLatLng[1] + 0.5],
                 [bombLatLng[0] + 0.5, bombLatLng[1] + 0.5]
-            ], { color: bola.options.icon.options.className.includes('usa') ? 'blue' : 'red' }).addTo(map);
+            ], { color: bola.options.icon.options.className.includes('usa') ? 'red' : 'blue' }).addTo(map);
             if (bola.options.icon.options.className.includes('usa')) {
                 puntajeUSA++;
                 bombedByUSA.push(target.getPopup().getContent());
