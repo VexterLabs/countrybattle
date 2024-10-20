@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>Batalla de Bolas del Mundo</h1>
-    <div id="marcador" class="marcador">USA: 0 | Canadá: 0</div>
+    <div id="marcador" class="map">USA: 0 | Canadá: 0</div>
     <div id="map" class="map"></div>
     <div id="controls" class="android">
         <button onclick="moverBola('up')">Arriba</button>
@@ -25,6 +25,7 @@
         <p>Países bombardeados por Canadá:</p>
         <ul id="bombedByCanada"></ul>
         <button onclick="reiniciarJuego()">PLAY</button>
+        <a href="#"onclick="reiniciarJuego()">Reparar bugs</a>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
