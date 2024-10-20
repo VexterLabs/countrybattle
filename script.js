@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 puntajeCanada++;
                 bombedByCanada.push(target.getPopup().getContent());
                 if (target === bolaUSA) {
-                    alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
+                    //alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
                 }
             }
@@ -163,10 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function checarGanador() {
         var totalPaises = 2; // Ajusta según el número de países en tu juego
         if (bombedByUSA.length >= totalPaises) {
-            alert("¡USA ha bombardeado todos los países y gana la partida!");
+            //alert("¡USA ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
         } else if (bombedByCanada.length >= totalPaises) {
-            alert("¡Canadá ha bombardeado todos los países y gana la partida!");
+            //alert("¡Canadá ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
         }
     }
