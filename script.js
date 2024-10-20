@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarEstadisticas() {
         var estadisticasDiv = document.getElementById('estadisticas');
-        var gameDiv = document.getElementById('marcador');
+        //var gameDiv = document.getElementById('marcador');
         var gameDiv = document.getElementById('mapa');
         var bombedByUSAList = document.getElementById('bombedByUSA');
         var bombedByCanadaList = document.getElementById('bombedByCanada');
