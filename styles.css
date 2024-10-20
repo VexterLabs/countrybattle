@@ -45,7 +45,6 @@
 button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: rgba(0, 0, 0, 0.8);
     cursor: pointer;
 }
 
@@ -55,8 +54,9 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -64,11 +64,4 @@ button {
 
 .hidden {
     display: none;
-}
-.fixed {
-    display: flex;
-}
- 
-.map {
-    display: flex;
 }
