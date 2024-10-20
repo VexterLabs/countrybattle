@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function reiniciarJuego() {
-        location.reload();
         gameDiv.classList.remove('map');
         gameDiv.classList.remove('fixed');
+        location.reload();
     }
 
     document.addEventListener('keydown', function(e) {
