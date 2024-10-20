@@ -65,6 +65,10 @@ button {
 .hidden {
     display: none;
 }
-.fixed, .map {
+.fixed {
+    display: none;
+}
+ 
+.map {
     display: none;
 }
