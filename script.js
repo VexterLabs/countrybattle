@@ -180,12 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'f') {
-            lanzarBombaDesde(bolaUSA, bolaCanada);
+            lanzarBombaDesde();
         }
     });
 
     function bolaCanadaAtaca() {
-        lanzarBomba(bolaCanada, bolaUSA);
+        lanzarBomba(bolaUSA, bolaCanada);
     }
 
     setInterval(bolaCanadaAtaca, 5000);
