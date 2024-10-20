@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         bolaUSA.setLatLng([lat, lng]);
         bazucaUSA.setLatLng([lat, lng]);
+        document.getElementById('moveSound').play();
     }
 
     function moverBolaConTeclado() {
@@ -111,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
     gameLoop();
 
     function lanzarBomba() {
-        lanzarBomba(bolaCanada);
-        lanzarBomba(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
+        lanzarBombaDesde(bolaUSA, bolaCanada);
+        lanzarBombaDesde(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
     }
 
     function lanzarBombaDesde(bola, target, offsetLat = 0, offsetLng = 0) {
@@ -120,9 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
         var bomba = L.circleMarker(bombLatLng, {
             color: 'black',
             fillColor: 'black',
-            fillOpacity: 10,
-            radius: 100
+            fillOpacity: 1,
+            radius: 5
         }).addTo(map).bindPopup('¡Bomba!');
+        document.getElementById('explosionSound').play();
         setTimeout(() => {
             map.removeLayer(bomba);
             var polygon = L.polygon([
@@ -130,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 [bombLatLng[0] - 0.5, bombLatLng[1] - 0.5],
                 [bombLatLng[0] - 0.5, bombLatLng[1] + 0.5],
                 [bombLatLng[0] + 0.5, bombLatLng[1] + 0.5]
-            ], { color: bola.options.icon.options.className.includes('usa') ? 'red' : 'blue' }).addTo(map);
+            ], { color: bola.options.icon.options.className.includes('usa') ? 'blue' : 'red' }).addTo(map);
             if (bola.options.icon.options.className.includes('usa')) {
                 puntajeUSA++;
                 bombedByUSA.push(target.getPopup().getContent());
@@ -138,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 puntajeCanada++;
                 bombedByCanada.push(target.getPopup().getContent());
                 if (target === bolaUSA) {
-                      //alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
+                    alert("¡La bola de Canadá ha bombardeado Estados Unidos! Fin de la partida.");
                     mostrarEstadisticas();
                 }
             }
@@ -149,8 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarEstadisticas() {
         var estadisticasDiv = document.getElementById('estadisticas');
-        //var gameDiv = document.getElementById('marcador');
-        var gameDiv = document.getElementById('mapa');
         var bombedByUSAList = document.getElementById('bombedByUSA');
         var bombedByCanadaList = document.getElementById('bombedByCanada');
 
@@ -158,35 +158,31 @@ document.addEventListener('DOMContentLoaded', function() {
         bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
         
         estadisticasDiv.classList.remove('hidden');
-        gameDiv.classList.remove('map');
     }
 
     function checarGanador() {
-        var totalPaises = 118; // Ajusta según el número de países en tu juego
+        var totalPaises = 2; // Ajusta según el número de países en tu juego
         if (bombedByUSA.length >= totalPaises) {
-            //alert("¡USA ha bombardeado todos los países y gana la partida!");
+            alert("¡USA ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
         } else if (bombedByCanada.length >= totalPaises) {
-            //alert("¡Canadá ha bombardeado todos los países y gana la partida!");
+            alert("¡Canadá ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
         }
     }
 
     function reiniciarJuego() {
-        gameDiv.classList.remove('map');
-        gameDiv.classList.remove('fixed');
         location.reload();
     }
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'f') {
-            lanzarBombaDesde();
+            lanzarBomba();
         }
     });
 
     function bolaCanadaAtaca() {
-        lanzarBomba();
-        lanzarBombaDesde(bolaCanada);
+        lanzarBombaDesde(bolaCanada, bolaUSA);
     }
 
     setInterval(bolaCanadaAtaca, 5000);
