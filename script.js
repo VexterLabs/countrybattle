@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function checarGanador() {
-        var totalPaises = 2; // Ajusta según el número de países en tu juego
+        var totalPaises = 118; // Ajusta según el número de países en tu juego
         if (bombedByUSA.length >= totalPaises) {
             //alert("¡USA ha bombardeado todos los países y gana la partida!");
             mostrarEstadisticas();
