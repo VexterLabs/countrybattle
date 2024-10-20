@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function lanzarBomba() {
         lanzarBomba(bolaCanada);
-        lanzarBombaDesde(bolaUSA, 0.5, 0.5); // Segunda bomba en una ubicación cercana
+        lanzarBombaDesde(bolaUSA, bolaCanada, 0.5, 0.5); // Segunda bomba en una ubicación cercana
     }
 
     function lanzarBombaDesde(bola, target, offsetLat = 0, offsetLng = 0) {
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', function(e) {
         if (e.key === 'f') {
-            lanzarBombaDesde(bolaUSA, bolaCanada);
+            lanzarBombaDesde(bolaUSA);
         }
     });
 
