@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     gameLoop();
 
     function lanzarBomba() {
-        lanzarBombaDesde(bolaUSA);
+        lanzarBomba(bolaCanada);
         lanzarBombaDesde(bolaUSA, 0.5, 0.5); // Segunda bomba en una ubicación cercana
     }
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             color: 'black',
             fillColor: 'black',
             fillOpacity: 10,
-            radius: 10
+            radius: 100
         }).addTo(map).bindPopup('¡Bomba!');
         setTimeout(() => {
             map.removeLayer(bomba);
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         bombedByCanadaList.innerHTML = bombedByCanada.map(pais => `<li>${pais}</li>`).join('');
         
         estadisticasDiv.classList.remove('hidden');
-        gameDiv.classList.remove('fixed');
+        gameDiv.classList.remove('map');
     }
 
     function checarGanador() {
