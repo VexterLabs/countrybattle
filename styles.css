@@ -66,9 +66,9 @@ button {
     display: none;
 }
 .fixed {
-    display: none;
+    display: flex;
 }
  
 .map {
-    display: none;
+    display: flex;
 }
