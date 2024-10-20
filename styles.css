@@ -65,6 +65,6 @@ button {
 .hidden {
     display: none;
 }
-.fixed {
+.fixed, .map {
     display: none;
 }
