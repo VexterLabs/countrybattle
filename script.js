@@ -174,6 +174,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function reiniciarJuego() {
         location.reload();
+        gameDiv.classList.remove('map');
+        gameDiv.classList.remove('fixed');
     }
 
     document.addEventListener('keydown', function(e) {
