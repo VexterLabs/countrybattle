@@ -9,14 +9,14 @@
 </head>
 <body>
     <h1>Batalla de Bolas del Mundo</h1>
-    <div id="marcador" class="fixed">USA: 0 | Canadá: 0</div>
-    <div id="map" class="fixed"></div>
-    <div id="controls" class="hidden">
+    <div id="marcador" class="marcador">USA: 0 | Canadá: 0</div>
+    <div id="map" class="map"></div>
+    <div id="controls" class="android">
         <button onclick="moverBola('up')">Arriba</button>
         <button onclick="moverBola('left')">Izquierda</button>
         <button onclick="moverBola('down')">Abajo</button>
         <button onclick="moverBola('right')">Derecha</button>
-        <button onclick="lanzarBomba()">Lanzar Bomba</button>
+        <button onclick="lanzarBombaDesde(bolaUSA)">Lanzar Bomba</button>
     </div>
     <div id="estadisticas" class="hidden">
         <h2>Estadísticas de la partida</h2>
