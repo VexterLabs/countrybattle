@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css">
 </head>
-<body onclick="reiniciarJuego()">
+<body>
     <h1>Batalla de Bolas del Mundo</h1>
-    <div id="marcador" class="map">USA: 0 | Canadá: 0</div>
-    <div id="map" class="map"></div>
-    <div id="controls" class="android">
+    <div id="marcador">USA: 0 | Canadá: 0</div>
+    <div id="map"></div>
+    <div id="controls">
         <button onclick="moverBola('up')">Arriba</button>
         <button onclick="moverBola('left')">Izquierda</button>
         <button onclick="moverBola('down')">Abajo</button>
         <button onclick="moverBola('right')">Derecha</button>
-        <button onclick="lanzarBombaDesde('bolaUSA')">Lanzar Bomba</button>
+        <button onclick="lanzarBomba()">Lanzar Bomba</button>
     </div>
     <div id="estadisticas" class="hidden">
         <h2>Estadísticas de la partida</h2>
@@ -25,8 +25,9 @@
         <p>Países bombardeados por Canadá:</p>
         <ul id="bombedByCanada"></ul>
         <button onclick="reiniciarJuego()">PLAY</button>
-        <a href="javascript:onClick='reiniciarJuego()';" onclick="reiniciarJuego()">Reparar bugs</a>
     </div>
+    <audio id="explosionSound" src="explosion.mp3"></audio>
+    <audio id="moveSound" src="move.mp3"></audio>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
